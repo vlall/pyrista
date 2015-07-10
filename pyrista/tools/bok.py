@@ -1,15 +1,9 @@
 from __future__ import absolute_import
 from bokeh.charts import HeatMap, output_file, show
-#from bokeh.sampledata.unemployment1948 import data
 from bokeh.models.widgets import TextInput, DataTable, DateFormatter, TableColumn
 from bokeh.models import ColumnDataSource
 from os.path import dirname, join
 from bokeh.io import output_file, show, vform
-from bokeh.embed import autoload_static
-import pyrista
-from bokeh.models import HoverTool
-from bokeh.plotting import figure, output_file, show
-
 
 class Make_Site:
 	def __init__(self, local_ip='n/a', public_ip='n/a', arp = []):
@@ -36,17 +30,8 @@ class Make_Site:
 		df2 = df.set_index(df[df.columns[0]].astype(str))
 		df2.drop(df.columns[0], axis=1, inplace=True)
 		df3 = df2.transpose()
-		output_file("switch.html", title = 'vlan map')
+		output_file("output/switch.html", title = 'vlan map')
 		# text_input = TextInput(value="VLAN NAME", title="Make Vlan:", callback= )
-
-
-		hover = HoverTool(
-		    tooltips = [
-		        ("index", "$index"),
-		        ("(x,y)", "($x, $y)"),
-		        ("desc", "@desc"),
-		    ]
-		)
 
 		# Make Heapmap
 		hm = HeatMap(df3, title="VLANs", width=950, palette=palette)

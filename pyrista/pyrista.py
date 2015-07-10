@@ -1,7 +1,7 @@
 import socket
 import commands
 import pyeapi
-import bok
+import tools.bok
 import csv
 
 class Pyrista_Obj:
@@ -26,17 +26,17 @@ class Pyrista_Obj:
 	def ip_check(self):
 		tcp = '' 
 		arp = ''
-		# get public ip via curl
+		# Set public ip via curl
 		curlCmd = 'curl -s checkip.dyndns.org | sed -e \'s/.*Current IP Address: //\' -e \'s/<.*$//\''
 		public_IP = commands.getstatusoutput(curlCmd) 
-		# get local ip via socket
+		# Set local ip via socket
 		s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 		s.connect(("google.com",80))
 		local_IP=(s.getsockname()[0])
 		s.close()
 		self.public_IP = str(public_IP[1])
 		self.local_IP=str(local_IP)
-		# get arp and netstat tables
+		# Set arp and netstat tables
 		arpStat = commands.getstatusoutput('arp -na')
 		netStat = commands.getstatusoutput('netstat -n')
 		arpList = arpStat[1].splitlines()
@@ -44,7 +44,6 @@ class Pyrista_Obj:
 		for i in arpList:
 			arp += i+'\n'
 			arpA = arpArray.append((i.split(' ')[1], i.split(' ')[3]) )
-		print arpArray
 		# +2 lines for tcp headers
 		i = netStat[1].count('tcp')+2
 		netStat = netStat[1].split('\n')[0:i]
@@ -54,7 +53,7 @@ class Pyrista_Obj:
 		self.tcp = tcp
 		self.arpArray = arpArray
 
-	# versioning switch changes
+	# Versioning switch changes
 	def backup(self):
 		node = self.node
 		self.show_config = node.get_config('running-config')
@@ -67,7 +66,7 @@ class Pyrista_Obj:
 		vlans = vlans.getAll()
 		return vlans
 
-	# print network tables
+	# Print network tables
 	def print_All(self):
 		self.ip_check()
 		info = ('Arp Table\n%s \n %s \nPublic IP: %s \nLocal IP: %s') % (self.arp, self.tcp, self.public_IP,self.local_IP)
@@ -81,16 +80,16 @@ class Pyrista_Obj:
 
 	def make_vlanCSV(self):
 		data = list_vlan()
-		self.to_csv(data,'vlan.csv')
+		self.to_csv(data,'tools/vlan.csv')
 		
 	def view_vlans(self):
-		#make html of switch config with vlan numbers, this has default values at the moment
+		# Makes HTML of config. Has default values at the moment.
 		self.ip_check()
-		x = bok.Make_Site(self.local_IP, self.public_IP, self.arpArray)
+		x = tools.bok.Make_Site(self.local_IP, self.public_IP, self.arpArray)
 		return ('Created \'/switch.html\'')
 
 if __name__ == '__main__':
-	#Pass switch number into object
+	# Pass switch number into object
 	sw5 = Pyrista_Obj(5)
 	print sw5.print_All()
-	print sw5.view_vlans()
+	sw5.view_vlans()
