@@ -23,4 +23,4 @@ python pyrista.py
 ```
 4) Navigate to file:///directory-to-folder/pyrista-master/pyrista/output/switch.html
 
-![Image of Yaktocat](http://s29.postimg.org/iut9mgok7/Screenshot_from_2015_07_10_00_43_02.png )
+![Image of Yaktocat](http://s27.postimg.org/4cjd3pghv/Screenshot_from_2015_07_10_00_43_02.png)
