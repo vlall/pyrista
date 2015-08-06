@@ -5,10 +5,10 @@ Pyrista will use Arista's Pyeapi and Bokeh visuals to do NetOps and get visualiz
 %>en
 en>management api http-commands
 ```
-2) Setup <b>eapi.conf<b>
+2) Setup <b>eapi.conf</b>
 ```
 [connection:sw0]
-host: 10.1.3.200
+host: 10.x.xx.xxx
 username: admin
 password: xxxx
 enablepwd: xxxx
