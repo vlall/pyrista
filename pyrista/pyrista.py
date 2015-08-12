@@ -7,7 +7,7 @@ import csv
 class Pyrista_Obj:
 
 	def __init__(self, num=0):
-		sw = ['sw0', 'sw1', 'sw2', 'sw3', 'sw4', 'sw5']
+		sw = ['core1', 'sw1', 'sw2', 'sw3', 'sw4', 'sw5', 'spine1', 'spine2']
 		name = sw[num]
 		# Config for switch access filepath
 		conf = 'eapi.conf'
